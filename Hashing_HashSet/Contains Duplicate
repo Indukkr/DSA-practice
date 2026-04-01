@@ -1,0 +1,18 @@
+1. Brute Force:
+- Compare each element with every other element
+- If any match → duplicate found
+- Time: O(n²)
+
+2. Better Approach (Sorting):
+- Sort the array
+- Check adjacent elements for equality
+- Time: O(n log n), Space: O(1)
+
+3. Optimal Approach (HashSet):
+- Use a HashSet to track seen elements
+- If element already exists → duplicate found
+- Time: O(n), Space: O(n)
+
+Decision:
+- Use HashSet for best time complexity
+- Use sorting if space is constrained

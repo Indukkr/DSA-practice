@@ -1,7 +1,7 @@
 1. Brute Force:
-- Compare each element with every other element
-- If any match → duplicate found
-- Time: O(n²)
+- Use nested loops to compare each element with others
+- If match found → duplicate exists
+- Time: O(n²), Space: O(1)
 
 2. Better Approach (Sorting):
 - Sort the array
@@ -9,10 +9,13 @@
 - Time: O(n log n), Space: O(1)
 
 3. Optimal Approach (HashSet):
-- Use a HashSet to track seen elements
+- Store elements in HashSet while traversing
 - If element already exists → duplicate found
 - Time: O(n), Space: O(n)
 
 Decision:
-- Use HashSet for best time complexity
-- Use sorting if space is constrained
+- Use HashSet for optimal time complexity
+- Use sorting when space is restricted
+
+Pattern Trigger:
+- "Have I seen this element before?"

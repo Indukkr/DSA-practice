@@ -20,46 +20,49 @@
 
 ### Drawback
 - Recomputes frequency for every substring
-- Very inefficient
+- Highly inefficient
 
 ---
 
 ## 🧠 Optimal Approach (Sliding Window + HashMap)
 
 ### Idea
-- Use sliding window to maintain valid substring
-- Expand window to satisfy condition
-- Shrink window to minimize length
+- Use a single HashMap to track required characters
+- Maintain a counter `requiredCount` = total characters needed
+- Expand window to satisfy requirement
+- Shrink window to minimize size
 
 ---
 
 ## 🔑 Key Variables
 
-- `need` → frequency map of `t`
-- `window` → current window frequency
-- `required` → number of unique characters in `t`
-- `formed` → number of characters currently satisfied
+- `map` → frequency map of `t`
+- `requiredCount` → total characters still needed (initial = t.length())
+- `i` → left pointer
+- `j` → right pointer
+- `windowSize` → minimum length found
+- `start_i` → starting index of answer
 
 ---
 
 ## 🧠 Steps
 
-1. Build `need` map from `t`
+1. Build frequency map from `t`
+
 2. Initialize:
-   - `l = 0`, `r = 0`
-   - `formed = 0`
-   - `required = need.size()`
+   - `requiredCount = t.length()`
+   - `i = 0`, `j = 0`
 
-3. Expand window (`r++`):
-   - Add character to `window`
-   - If frequency matches `need` → `formed++`
+3. Expand window (`j++`):
+   - If `map[ch] > 0` → character is needed → `requiredCount--`
+   - Decrease frequency: `map[ch]--`
 
-4. When `formed == required`:
+4. When `requiredCount == 0` (valid window):
    - Update minimum window
    - Try shrinking from left:
-     - Remove `s[l]`
-     - If frequency becomes less than needed → `formed--`
-     - Move `l++`
+     - Increase frequency of `s[i]`
+     - If `map[s[i]] > 0` → window becomes invalid → `requiredCount++`
+     - Move `i++`
 
 5. Continue until end
 
@@ -67,8 +70,9 @@
 
 ## 🎯 Key Insight
 
-- Expand → to satisfy condition  
-- Shrink → to optimize window size  
+- Track **how many characters are still needed**
+- No need for separate window map
+- Negative values handle extra characters automatically
 
 ---
 
@@ -88,7 +92,7 @@
 
 ## 🎯 Interview Flow
 
-1. Brute force → generate all substrings
+1. Start with brute force (all substrings)
 2. Identify repeated work
-3. Use sliding window to optimize
-4. Track validity using `formed == required`
+3. Optimize using sliding window
+4. Use `requiredCount` to track validity

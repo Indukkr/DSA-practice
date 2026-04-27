@@ -51,10 +51,11 @@ class Solution {
 
         ListNode current = head;
         ListNode previous = null;
+        ListNode forward = null;
 
         while (current != null) {
 
-            ListNode forward = current.next;
+            forward = current.next;
             current.next = previous;
             previous = current;
             current = forward;
